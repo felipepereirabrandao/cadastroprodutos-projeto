@@ -14,6 +14,9 @@ class Produto {
         }
 
         console.log(this.arrayProdutos)
+
+        this.Listar()
+        this.Cancelar()
         
     }
 
@@ -47,6 +50,54 @@ class Produto {
     Salvar(produto){
         this.arrayProdutos.push(produto)
         this.id++
+    }
+
+    Listar(){
+        let tbody = document.getElementById('tbody')
+        tbody.innerText = ''
+
+        for(let item in this.arrayProdutos){
+            let precoFormatado = parseFloat(this.arrayProdutos[item].precoProduto).toFixed(2)
+            let tr = tbody.insertRow()
+
+            let td_id = tr.insertCell()
+            let td_nome = tr.insertCell()
+            let td_preco = tr.insertCell()
+            let td_del = tr.insertCell()
+
+            td_id.innerText = this.arrayProdutos[item].id
+            td_nome.innerText = this.arrayProdutos[item].nomeProduto
+            td_preco.innerText = `R$  ${precoFormatado}`
+            let imagem = document.createElement('img')
+            imagem.src = '/img/del_50.png'
+            imagem.setAttribute('onclick', 'produto.Deletar('+this.arrayProdutos[item].id+')')
+            td_del.appendChild(imagem)
+
+            
+
+            
+
+        }
+    }
+
+    Cancelar(){
+        document.getElementById('pdnome').value = ''
+        document.getElementById('pdpreco').value = ''
+
+
+    }
+
+    Deletar(id){
+        let tbody = document.getElementById('tbody')
+
+        for(let item in this.arrayProdutos){
+           if(this.arrayProdutos[item].id == id){
+            this.arrayProdutos.splice(item, 1)
+            tbody.deleteRow(item)
+           }
+        }
+
+        // alert(`o Item com ID ${id} foi apagado!`)
 
     }
 }

@@ -81,3 +81,7 @@ table td {
     padding: .3rem;
     text-align: center;
 }
+
+table td img {
+    width: 2rem;
+}
